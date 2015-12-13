@@ -1,18 +1,13 @@
-class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
-
 require 'rubygems'
 require 'httparty'
 require 'json'
 
 apikey = "13abc0bfef9c61b1cf3605770c147b269049ab44"
-venue = "RFLEX"   # Replace this with your real value.
-stock = "HIJ"  #Fun fact: Japanese programmers often use "hogehoge" where Americans use "foobar."  You should probably replace this with your real value.
+venue = "FOOEX"   # Replace this with your real value.
+stock = "HOGE"  #Fun fact: Japanese programmers often use "hogehoge" where Americans use "foobar."  You should probably replace this with your real value.
 base_url = "https://api.stockfighter.io/ob/api"
 
-account = "STB5769031"  # Printed in bold in the level instructions. Replace with your real value.
+account = "HB61251714"  # Printed in bold in the level instructions. Replace with your real value.
 
 # Set up the order
 
@@ -20,8 +15,8 @@ order = {
   "account" => account,
   "venue" => venue,
   "symbol" => stock,
-  "price" => 0,  #"price" => 25000, #$250.00 -- probably ludicrously high
-  "qty" => 0, # "qty" => 100,
+  "price" => 25000,  #$250.00 -- probably ludicrously high
+  "qty" => 100,
   "direction" => "buy",
   "orderType" => "limit"  # See the order docs for what a limit order is
 }
@@ -63,4 +58,3 @@ puts response.body
 
 # As we can see, I got 100 fills of the 100 shares I ordered.  Whee!
 # This order is now closed (open: false).
-end
