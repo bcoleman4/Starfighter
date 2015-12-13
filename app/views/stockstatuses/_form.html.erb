@@ -1,0 +1,21 @@
+<%= form_for(@stockstatus) do |f| %>
+  <% if @stockstatus.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@stockstatus.errors.count, "error") %> prohibited this stockstatus from being saved:</h2>
+
+      <ul>
+      <% @stockstatus.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :stuff %><br>
+    <%= f.text_field :stuff %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

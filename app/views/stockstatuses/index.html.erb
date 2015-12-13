@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Stockstatuses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stuff</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @stockstatuses.each do |stockstatus| %>
+      <tr>
+        <td><%= stockstatus.stuff %></td>
+        <td><%= link_to 'Show', stockstatus %></td>
+        <td><%= link_to 'Edit', edit_stockstatus_path(stockstatus) %></td>
+        <td><%= link_to 'Destroy', stockstatus, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+
+<br>
+
+<p>
+<td>Status of the API .... </td><%= @apiresponse %>
+</p>
+<p>
+<td>Status of the Venue .... </td><%= @venueresponse %>
+</p>
+<p>
+<td>Status of the Orderbook .... </td><%= @orderbookresponse %>
+</p>
+
+
+<%= link_to 'New Stockstatus', new_stockstatus_path %>
