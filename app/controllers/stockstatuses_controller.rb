@@ -38,14 +38,14 @@ class StockstatusesController < ApplicationController
       end
 
       begin
-        @stocksresponse = HTTParty.get("https://api.stockfighter.io/ob/api/venues/TESTEX/stocks", timeout: 1)
+        @stocksresponse = HTTParty.get("https://api.stockfighter.io/ob/api/venues/GMSPEX/stocks", timeout: 1)
       rescue Net::ReadTimeout
         @stocksresponse = "Venue Timed Out!"
-        @json = @stocksresponse.parsed_response
+        #@json = @stocksresponse.parsed_response
         
-        puts @json[:ok]
+        #puts @json[:ok]
 
-        puts @json[:symbols]
+        #puts @json[:symbols]
 
       end
       
