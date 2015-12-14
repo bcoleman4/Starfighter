@@ -21,9 +21,6 @@
     <% end %>
   </tbody>
 </table>
-
-
-
 <br>
 
 <p>
@@ -35,6 +32,23 @@
 <p>
 <td>Status of the Orderbook .... </td><%= @orderbookresponse %>
 </p>
+
+<table>
+<tbody>
+<%= @stocksresponse.each do |stocksresponse| %>
+<tr>
+  <td><%= stocksresponse %></td>
+  </tr>
+  <% end %>
+</tbody>
+</table>
+
+
+
+<p>
+  <td><%= @json %></td>
+</p>
+
 
 
 <%= link_to 'New Stockstatus', new_stockstatus_path %>
