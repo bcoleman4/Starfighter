@@ -2,26 +2,6 @@
 
 <h1>Listing Stockstatuses</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Stuff</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @stockstatuses.each do |stockstatus| %>
-      <tr>
-        <td><%= stockstatus.stuff %></td>
-        <td><%= link_to 'Show', stockstatus %></td>
-        <td><%= link_to 'Edit', edit_stockstatus_path(stockstatus) %></td>
-        <td><%= link_to 'Destroy', stockstatus, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-<br>
 
 <p>
 <td>Status of the API .... </td><%= @apiresponse %>
@@ -35,15 +15,17 @@
 
 <table>
 <tbody>
-<%= @stocksresponse.each do |stocksresponse| %>
+<%= @json.each do |json| %>
 <tr>
-  <td><%= stocksresponse %></td>
+
+  <td>Status: <%= @json %></td>
+
   </tr>
   <% end %>
 </tbody>
 </table>
 
-
+Status: <%= @json %>
 
 
 <%= link_to 'New Stockstatus', new_stockstatus_path %>

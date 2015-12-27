@@ -1,5 +1,5 @@
 class StockstatusesController < ApplicationController
-  before_action :set_stockstatus, only: [:show, :edit, :update, :destroy, :stocksresponse, :json, :symbols, :ok]
+  before_action :set_stockstatus, only: [:show, :edit, :update, :destroy, :stocksresponse, :json, :symbols, :ok, :name]
 
   
   def apistatus
@@ -12,10 +12,17 @@ class StockstatusesController < ApplicationController
   # GET /stockstatuses
   # GET /stockstatuses.json
   def index
-    @stockstatuses = Stockstatus.all
+    #@stockstatuses = Stockstatus.all
+    @stockstatuses = HTTParty.get("https://api.stockfighter.io/ob/api/heartbeat", timeout: 1 )
+    @stockstatuses = @stockstatuses.parsed_response
+
+    #@stocksresponses = Stocksresponse.new(stocksresponse_params)
 
       begin
-        @apiresponse = HTTParty.get("https://api.stockfighter.io/ob/api/heartbeat", timeout: 1 )
+        @apiresponse1 = HTTParty.get("https://api.stockfighter.io/ob/api/heartbeat", timeout: 1 )
+        @apiresponse2 = @apiresponse1.parsed_response
+        puts @apiresponse2[:ok]
+        puts @apiresponse2[:error]
         @apiresponse = "The API is working"
       rescue Net::ReadTimeout
         @apiresponse = "API Timed Out!"
@@ -38,15 +45,14 @@ class StockstatusesController < ApplicationController
       end
 
       begin
-        @stocksresponse = HTTParty.get("https://api.stockfighter.io/ob/api/venues/GMSPEX/stocks", timeout: 1)
+        @stocksresponse = HTTParty.get("https://api.stockfighter.io/ob/api/venues/TESTEX/stocks", timeout: 1)
+        #render json: @stocksresponse
+        @json = @stocksresponse.parsed_response
+        puts @json[:ok]
+        puts @json[:symbols]
+        #render json: @json
       rescue Net::ReadTimeout
         @stocksresponse = "Venue Timed Out!"
-        #@json = @stocksresponse.parsed_response
-        
-        #puts @json[:ok]
-
-        #puts @json[:symbols]
-
       end
       
 
@@ -69,8 +75,9 @@ class StockstatusesController < ApplicationController
   # POST /stockstatuses
   # POST /stockstatuses.json
   def create
-    @stockstatus = Stockstatus.new(stockstatus_params)
-
+    #@stockstatus = Stockstatus.new(stockstatus_params)
+    @stockstatus = HTTParty.get("https://api.stockfighter.io/ob/api/heartbeat", timeout: 1 )
+    
     respond_to do |format|
       if @stockstatus.save
         format.html { redirect_to @stockstatus, notice: 'Stockstatus was successfully created.' }
@@ -115,5 +122,14 @@ class StockstatusesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def stockstatus_params
       params.require(:stockstatus).permit(:stuff)
+    end
+    def apiresponse2_params
+      params.require(:apiresponse2).permit(:ok, :error)
+    end
+    def stocksresponse_params
+      params.require(:stocksresponse).permit(:ok, :symbols)
+    end
+    def json_params
+      params.require(:json).permit(:ok, :symbols_name, )
     end
 end
